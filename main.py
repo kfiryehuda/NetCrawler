@@ -29,6 +29,9 @@ p2 = "//p/a[not(preceding::a/. = .)]/@href[starts-with(.,'/wiki/') " \
      "and not(contains(., 'brand')) " \
      "and not(contains(., 'Tweener')) and not(contains(., 'Award')) and not(contains(., 'Academy'))]"
 
+path_1 = "/html/body//table/tbody/tr[1]/th[5][contains(text(), 'Opponent') or contains(text(), 'Partner')]/../../tr/td[position()=5]/a[string-length(@href)<35]/@href[starts-with(.,'/wiki/')]"
+path_2 = "/html/body//table/tbody/tr[1]/th[6][contains(text(), 'Opponent') or contains(text(), 'Partner')]/../../tr/td[position()=6]/a[string-length(@href)<35]/@href[starts-with(.,'/wiki/')]"
+path_3 = "/html/body//table/tbody/tr[1]/th[7][contains(text(), 'Opponent') or contains(text(), 'Partner')]/../../tr/td[position()=7]/a[string-length(@href)<35]/@href[starts-with(.,'/wiki/')]"
 
 def main():
     page = requests.get("https://en.wikipedia.org/wiki/Roger_Federer")
