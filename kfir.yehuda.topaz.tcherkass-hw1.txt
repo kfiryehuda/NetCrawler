@@ -1,0 +1,26 @@
+תשובות
+שאלה 1:
+Xpath ראשון:
+/html/body//table/tbody/tr[1]/th[5][contains(text(), 'Opponent') or contains(text(), 'Partner')]/../../tr/td[position()=5]/a[string-length(@href)<35]/@href[starts-with(.,'/wiki/')]
+קישור מקור:
+https://en.wikipedia.org/wiki/Andy_Ram
+קישור יעד:
+https://en.wikipedia.org/wiki/Jonathan_Erlich
+ שני:Xpath
+/html/body//table/tbody/tr[1]/th[6][contains(text(), 'Opponent') or contains(text(), 'Partner')]/../../tr/td[position()=6]/a[string-length(@href)<35]/@href[starts-with(.,'/wiki/')]
+קשור מקור:
+https://en.wikipedia.org/wiki/Andy_Ram
+קישור יעד:
+https://en.wikipedia.org /wiki/Mahesh_Bhupathi
+שלישי: Xpath
+/html/body//table/tbody/tr[1]/th[7][contains(text(), 'Opponent') or contains(text(), 'Partner')]/../../tr/td[position()=7]/a[string-length(@href)<35]/@href[starts-with(.,'/wiki/')]
+קשור מקור:
+https://en.wikipedia.org/wiki/Andy_Ram
+קישור יעד:
+https://en.wikipedia.org/wiki/Julian_Knowle
+
+שאלה 3:
+הדף עם הדירוג הגבוה ביותר שקיבלנו היה: https://en.wikipedia.org/wiki/Tennis_tour
+הדירוג שלו היה:
+100 איטרציות הינו זמן מספיק עבור התכנסות במקרה זה, זאת מכיוון שלאחר 101 איטרציות, ראינו כי 
+
