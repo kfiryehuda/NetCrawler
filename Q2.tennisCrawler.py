@@ -23,10 +23,15 @@ def crawl_url(url, xpaths):
 
 
 def get_random_unvisited_url(from_list, visited_list):
-    for iterate in range(1000):
-        rand_url = random.choice(list(set(from_list)))
+    temp_set = set(from_list.copy())
+    for iterate in range(100000):
+        rand_url = random.choice(list(temp_set))
         if not rand_url in visited_list:
             return rand_url
+        else:
+            temp_set.discard(rand_url)
+    if len(temp_set) == 0:
+        return None
 
 
 def get_closest_to_first(crawled_urls, visited_urls, urls_distance_from_first):
@@ -54,26 +59,47 @@ def tennisCrawler(url, xpaths):
     first_url_set = set(crawl_url(url, xpaths))
     ingest_urls(first_url_set, url, crawled_urls, crawled_urls_src, urls_distance_from_first, visited_urls)
 
-    while len(visited_urls) < 80:
+    while len(visited_urls) < 10:
         # do 3 DFS
-        for i in range(3):
+        # 1 DFS
+        random_url = get_random_unvisited_url(crawled_urls, visited_urls)
+        url_set = set(crawl_url(random_url, xpaths))
+        ingest_urls(url_set, random_url, crawled_urls, crawled_urls_src, urls_distance_from_first, visited_urls)
+        # 2 DFS
+        random_url = get_random_unvisited_url(url_set, visited_urls)
+        if random_url is not None:
+            url_set_2 = set(crawl_url(random_url, xpaths))
+        else:
             random_url = get_random_unvisited_url(crawled_urls, visited_urls)
-            url_set = set(crawl_url(random_url, xpaths))
-            ingest_urls(url_set, random_url, crawled_urls, crawled_urls_src, urls_distance_from_first, visited_urls)
+            url_set_2 = set(crawl_url(random_url, xpaths))
+        ingest_urls(url_set_2, random_url, crawled_urls, crawled_urls_src, urls_distance_from_first, visited_urls)
+        # 3 DFS
+        random_url = get_random_unvisited_url(url_set_2, visited_urls)
+        if random_url is not None:
+            url_set_3 = set(crawl_url(random_url, xpaths))
+        else:
+            random_url = get_random_unvisited_url(url_set, visited_urls)
+            if random_url is not None:
+                url_set_3 = set(crawl_url(random_url, xpaths))
+            else:
+                random_url = get_random_unvisited_url(crawled_urls, visited_urls)
+                url_set_3 = set(crawl_url(random_url, xpaths))
+        ingest_urls(url_set_3, random_url, crawled_urls, crawled_urls_src, urls_distance_from_first, visited_urls)
+
         # do 1 BFS
         closest_url = get_closest_to_first(crawled_urls, visited_urls, urls_distance_from_first)
         url_set = set(crawl_url(closest_url, xpaths))
         ingest_urls(url_set, closest_url, crawled_urls, crawled_urls_src, urls_distance_from_first, visited_urls)
 
 
-    # print(visited_urls)
+    print(visited_urls)
     ret = [[crawled_urls_src[e], e] for e in crawled_urls]
     return ret
 
 
 
 import main
-tennisCrawler("https://en.wikipedia.org/wiki/Roger_Federer", [main.p2, main.p1])
+tennisCrawler("https://en.wikipedia.org/wiki/Roger_Federer", [main.p2])
 # for i in tennisCrawler("https://en.wikipedia.org/wiki/Roger_Federer", [main.p2]):
 #     print(i)
 

@@ -2,7 +2,6 @@ import requests
 import lxml.etree
 import lxml.html
 
-p1 = "//p/a[not(preceding::a/. = .)]/@href[starts-with(.,'/wiki/') and contains(.,'_') and not(contains(.,':')) and not(contains(.,'(')) and not(contains(.,'#')) and not(contains(.,'.')) and not(contains(substring-after(., '_'), '_'))]"
 p2 = "//p/a[not(preceding::a/. = .)]/@href[starts-with(.,'/wiki/') " \
      "and contains(.,'_') and not(contains(.,':')) and not(contains(.,',')) and not(contains(.,'#')) and not(contains(.,'.'))" \
      "and not(contains(substring-after(., '_'), '_')) and contains('ABCDEFGHIJKLMNOPQRSTUVWXYZ', substring(substring-after(., '_'), 1, 1))" \
