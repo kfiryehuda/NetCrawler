@@ -92,7 +92,7 @@ def tennisCrawler(url, xpaths):
         ingest_urls(url_set, closest_url, crawled_urls, crawled_urls_src, urls_distance_from_first, visited_urls)
 
 
-    print(visited_urls)
+    # print(visited_urls)
     ret = [[crawled_urls_src[e], e] for e in crawled_urls]
     return ret
 
