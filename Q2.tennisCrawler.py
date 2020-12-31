@@ -25,6 +25,8 @@ def crawl_url(url, xpaths):
 def get_random_unvisited_url(from_list, visited_list):
     temp_set = set(from_list.copy())
     for iterate in range(100000):
+        if len(temp_set) == 0:
+            return None
         rand_url = random.choice(list(temp_set))
         if not rand_url in visited_list:
             return rand_url
