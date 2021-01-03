@@ -36,9 +36,10 @@ path_2 = "/html/body//table/tbody/tr[1]/th[6][contains(text(), 'Opponent') or co
 path_3 = "/html/body//table/tbody/tr[1]/th[7][contains(text(), 'Opponent') or contains(text(), 'Partner')]/../../tr/td[position()=7]/a[string-length(@href)<35]/@href[starts-with(.,'/wiki/')]"
 
 def main():
+    print(p2)
     # page = requests.get("https://en.wikipedia.org/wiki/Roger_Federer")
-    page = requests.get("https://en.wikipedia.org/wiki/Rafael_Nadal")
-    # page = requests.get("https://en.wikipedia.org/wiki/Andy_Ram")
+    # page = requests.get("https://en.wikipedia.org/wiki/Rafael_Nadal")
+    page = requests.get("https://en.wikipedia.org/wiki/Andy_Ram")
     doc = lxml.html.fromstring(page.content)
     urls = doc.xpath(p2)
     for url in urls:

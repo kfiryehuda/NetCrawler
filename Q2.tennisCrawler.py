@@ -7,6 +7,12 @@ WIKI_PREFIX = 'https://en.wikipedia.org'
 
 
 def crawl_url(url, xpaths):
+    """
+    crawl a single url
+    :param url: the url
+    :param xpaths: xpaths to crawl with
+    :return: the urls matches the xpath.
+    """
     time.sleep(3)
     urls = []
     try:
@@ -23,6 +29,12 @@ def crawl_url(url, xpaths):
 
 
 def get_random_unvisited_url(from_list, visited_list):
+    """
+    find random unvisited url from list.
+    :param from_list: the src url list.
+    :param visited_list: the visited url list
+    :return: single url. if found one. else None.
+    """
     temp_set = set(from_list.copy())
     for iterate in range(100000):
         if len(temp_set) == 0:
@@ -36,14 +48,31 @@ def get_random_unvisited_url(from_list, visited_list):
         return None
 
 
-def get_closest_to_first(crawled_urls, visited_urls, urls_distance_from_first):
+def get_closest_to_first(visited_urls, urls_distance_from_first):
+    """
+    get closest url to first url.
+    :param visited_urls: visited urls.
+    :param urls_distance_from_first: dic with info about distance from the first url and the others.
+    :return: a closest url that unvisited. if not found return None.
+    """
     sorted_by_dist_urls = dict(sorted(urls_distance_from_first.items(), key=lambda item: item[1])).keys()
     for i in sorted_by_dist_urls:
         if i not in visited_urls:
             return i
+    return None
 
 
 def ingest_urls(url_set, src_url, crawled_urls, crawled_urls_src, urls_distance_from_first, visited_urls):
+    """
+    ingest urls to crawled list.
+    :param url_set: set to ingest
+    :param src_url: the url that gave the new urls.
+    :param crawled_urls: already crawled urls.
+    :param crawled_urls_src: a dic with urls and their src of crawling.
+    :param urls_distance_from_first: urls distance from first.
+    :param visited_urls:  visited urls.
+    :return: None.
+    """
     for i in url_set:
         if i not in crawled_urls:
             crawled_urls.append(i)
@@ -53,6 +82,12 @@ def ingest_urls(url_set, src_url, crawled_urls, crawled_urls_src, urls_distance_
 
 
 def tennisCrawler(url, xpaths):
+    """
+    given url it crawls 80 different urls of tennis players and coaches.
+    :param url: the starting url.
+    :param xpaths: list of xpaths, to crawl with.
+    :return: returns a list of list. each list has source url and destination url.
+    """
     visited_urls = []
     crawled_urls = []
     crawled_urls_src = {}
@@ -89,27 +124,9 @@ def tennisCrawler(url, xpaths):
         ingest_urls(url_set_3, random_url, crawled_urls, crawled_urls_src, urls_distance_from_first, visited_urls)
 
         # do 1 BFS
-        closest_url = get_closest_to_first(crawled_urls, visited_urls, urls_distance_from_first)
+        closest_url = get_closest_to_first(visited_urls, urls_distance_from_first)
         url_set = set(crawl_url(closest_url, xpaths))
         ingest_urls(url_set, closest_url, crawled_urls, crawled_urls_src, urls_distance_from_first, visited_urls)
 
-
-    # print(visited_urls)
     ret = [[crawled_urls_src[e], e] for e in crawled_urls]
     return ret
-
-
-
-import main
-tennisCrawler("https://en.wikipedia.org/wiki/Roger_Federer", [main.p2])
-# for i in tennisCrawler("https://en.wikipedia.org/wiki/Roger_Federer", [main.p2]):
-#     print(i)
-
-
-
-
-
-
-
-
-
